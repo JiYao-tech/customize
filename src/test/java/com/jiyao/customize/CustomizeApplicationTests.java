@@ -1,45 +1,55 @@
 package com.jiyao.customize;
 
-import com.jiyao.customize.dto.zjg.Community;
-import com.jiyao.customize.service.AuthenticationService;
-import com.jiyao.customize.service.CommunityService;
+import com.jiyao.customize.dao.third.UserMapper;
+import com.jiyao.customize.dto.User;
+import com.jiyao.customize.service.OrgService;
+import com.jiyao.customize.service.PersonService;
+import com.jiyao.customize.service.SubscribeEvent;
+import com.jiyao.customize.utils.Base64Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CustomizeApplication.class)
 public class CustomizeApplicationTests {
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private PersonService personService;
 
     @Autowired
-    private CommunityService communityService;
+    private OrgService orgService;
+
+    @Autowired
+    private SubscribeEvent subscribeEvent;
 
     @Test
-    public void testGetSign() {
-        authenticationService.getSign();
+    public void testQueryPersonId() {
+        List<String> list = new ArrayList<>();
+        list.add("420704199608075274");
+        String personId = personService.queryPersonId("certificateNo", list);
+        System.out.println(personId);
     }
 
     @Test
-    public void testGetToken(){
-        authenticationService.getToken();
+    public void testQueryOrgList(){
+        String s = orgService.queryOrgList(1, 100);
+        System.out.println(s);
     }
 
     @Test
-    public void testcared(){
-        Community community = new Community("江夏区纸坊街谭鑫培路15号博雅豪庭","420115BYHT","博雅豪庭","420115");
-        communityService.create(community);
+    public void testQueryEventSubscriptionView(){
+        subscribeEvent.queryEventSubscriptionView();
     }
 
     @Test
-    public void testJSON() throws IOException {
+    public void testFileImageToBase64(){
+        String s = Base64Utils.fileImageToBase64("C:\\Users\\36536\\Desktop\\微信图片_20210207135322.jpg");
+        System.out.println(s);
     }
 }

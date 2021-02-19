@@ -1,14 +1,20 @@
 server:
-  ip: 192.168.1.45
+  ip: 192.168.1.43
   port: 8080
 
-mybatis:
-  #mapper-locations:
-  #  - classpath:mapper/*.xml
-  #  - classpath*:com/**/mapper/*.xml
-  type-aliases-package: com.chuweizi.customize.dto
+#配置日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 spring:
+  datasource:
+    # 驱动不同 mysql 5  com.mysql.jdbc.Driver
+    #         mysql 8  com.mysql.cj.jdbc.Driver、需要增加时区的配置serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/police_upload?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
   # yml配置的优先级高于java配置；如果yml配置和java配置同时存在，则yml配置会覆盖java配置
   http-client:
     pool:

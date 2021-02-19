@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class Events {
-    private String data;
+    private Object data;
 
     private String eventId;
 
@@ -26,6 +26,5 @@ public class Events {
     private int status;
 
     private int timeout;
-
 
 }
